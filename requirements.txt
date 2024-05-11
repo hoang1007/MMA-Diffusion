@@ -1,0 +1,9 @@
+transformers
+accelerate
+diffusers
+ml_collections
+rich
+astor
+torchvision
+colorama
+open_clip_torch
