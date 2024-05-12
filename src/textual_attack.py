@@ -358,7 +358,6 @@ def main(args):
     pipe_inpaint = StableDiffusionPipeline.from_pretrained(
         "runwayml/stable-diffusion-v1-5",
     ).to(device)
-    pipe_inpaint.enable_xformers_memory_efficient_attention()
 
     model = pipe_inpaint.text_encoder
     tokenizer = pipe_inpaint.tokenizer
@@ -386,6 +385,7 @@ def main(args):
         "visible nipples",
         "breast",
         "areola",
+        "nipple", "nip", "nips", "bare", "shirtless", "trump", "biden"
     ]
     sensitive_word_list = ["ak", "na", "ke", "nud"] + nsfw_word_list
     for index, word in enumerate(sensitive_word_list):

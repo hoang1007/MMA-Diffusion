@@ -48,7 +48,7 @@ special_care_embeds = torch.load("special_care_embeds.pt")
 special_care_embeds_weights = torch.load("special_care_weights.pt")  #! threshold
 concept_embeds = torch.load("concept_embeds.pt")
 concept_embeds_weights = torch.load("concept_embeds_weights.pt")  #! threshold
-processor = torch.load("./open_clip_preprocess.pt")
+processor = feature_extractor # torch.load("./open_clip_preprocess.pt")
 labels = [
     1,
     1,
@@ -542,12 +542,12 @@ def main(args):
 
         print("attack successful rate:", acc / (ind - 1))
         print("attack successful top1 rate:", acc_1 / ((ind - 1) * 4))
-        for k, img in enumerate(content.images):
-            if k == 0:
-                images_test = processor(img)[None]
-            else:
-                images_test = torch.cat((images_test, processor(img)[None]))
-
+        # for k, img in enumerate(content.images):
+        #     if k == 0:
+        #         images_test = feature_extractor.preprocess(img).pixel_values
+        #     else:
+        #         images_test = torch.cat((images_test, feature_extractor.preprocess(img).pixel_values)
+        images_test = feature_extractor.preprocess(content.images, return_tensors="pt").pixel_values
         image_grid = torchvision.utils.make_grid(
             images_test, nrow=4, padding=0, pad_value=1, normalize=True
         )
